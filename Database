@@ -1,0 +1,48 @@
+/* ENUNCIADO */
+Refactoriza el código para que cumpla con el Principio de Inversión de Dependencias. Introduce una abstracción para la funcionalidad de almacenamiento de datos.
+
+public class Database {
+    public void save(String data) {
+        // Lógica para guardar datos en la base de datos
+    }
+}
+
+public class DataService {
+    private Database database = new Database();
+
+    public void saveData(String data) {
+        database.save(data);
+    }
+}
+
+Pistas:
+1. Crea una interfaz DataStorage con un método save.
+2. Implementa DataStorage en la clase Database.
+3. Modifica DataService para que dependa de DataStorage en lugar de Database.
+
+
+
+/* CORRECCIÓN */
+public interface DataStorage {
+    void save(String data);
+}
+
+public class Database implements DataStorage {
+    @Override
+    public void save(String data) {
+        // Lógica para guardar datos en la base de datos
+        System.out.println("Saving data: " + data);
+    }
+}
+
+public class DataService {
+    private DataStorage dataStorage;
+
+    public DataService(DataStorage dataStorage) {
+        this.dataStorage = dataStorage;
+    }
+
+    public void saveData(String data) {
+        dataStorage.save(data);
+    }
+}

@@ -1,0 +1,46 @@
+/* ENUNCIADO */
+Refactoriza el código para que cumpla con el Principio de Abierto/Cerrado. Debes permitir la extensión de nuevos métodos de pago sin modificar la clase `PaymentProcessor`.
+
+public class PaymentProcessor {
+    public void processPayment(String paymentType) {
+        if (paymentType.equals("credit")) {
+            // Lógica para procesar el pago con tarjeta de crédito
+        } else if (paymentType.equals("paypal")) {
+            // Lógica para procesar el pago con PayPal
+        }
+    }
+}
+
+Pistas:
+1. Crea una interfaz PaymentMethod con un método `processPayment`.
+2. Implementa esta interfaz en clases concretas para cada tipo de pago (por ejemplo, `CreditCardPayment` y `PayPalPayment`).
+3. Modifica PaymentProcessor para que use la interfaz `PaymentMethod`.
+
+
+
+/* CORRECCIÓN */
+public class PaymentProcessor {
+    public void processPayment(PaymentMethod paymentMethod) {
+        paymentMethod.processPayment();
+    }
+}
+
+public interface PaymentMethod{
+    void processPayment();
+}
+
+public class CreditCardPayment implements PaymentMethod {
+    @Override
+    public void processPayment() {
+        // Lógica para procesar el pago con tarjeta de crédito
+        System.out.println("Procesando pago con tarjeta de crédito");
+    }
+}
+
+public class PayPalPayment implements PaymentMethod {
+    @Override
+    public void processPayment() {
+        // Lógica para procesar el pago con PayPal
+        System.out.println("Procesando pago con PayPal");
+    }
+}

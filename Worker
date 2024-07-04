@@ -1,0 +1,69 @@
+/* ENUNCIADO */
+Refactoriza el código para que cumpla con el Principio de Segregación de Interfaces. Crea interfaces más específicas para evitar que las clases implementen métodos que no necesitan.
+
+public interface Worker {
+    void work();
+    void eat();
+}
+
+public class HumanWorker implements Worker {
+    @Override
+    public void work() {
+        // Lógica para trabajar
+    }
+
+    @Override
+    public void eat() {
+        // Lógica para comer
+    }
+}
+
+public class RobotWorker implements Worker {
+    @Override
+    public void work() {
+        // Lógica para trabajar
+    }
+
+    @Override
+    public void eat() {
+        throw new UnsupportedOperationException("Robots don't eat");
+    }
+}
+
+Pistas:
+1. Crea una interfaz Workable para la funcionalidad de trabajo.
+2. Crea una interfaz Eatable para la funcionalidad de comer.
+3. Implementa estas interfaces en las clases correspondientes.
+
+
+
+/* CORRECCIÓN */
+public interface Workable {
+    void work();
+}
+
+public interface Eatable {
+    void eat();
+}
+
+public class HumanWorker implements Workable, Eatable {
+    @Override
+    public void work() {
+        // Lógica para trabajar
+        System.out.println("Human working");
+    }
+
+    @Override
+    public void eat() {
+        // Lógica para comer
+        System.out.println("Human eating");
+    }
+}
+
+public class RobotWorker implements Workeable {
+    @Override
+    public void work() {
+        // Lógica para trabajar
+        System.out.println("Robot working");
+    }
+}

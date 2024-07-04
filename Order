@@ -1,0 +1,83 @@
+/* ENUNCIADO */
+Refactoriza la clase Order para que cumpla con el Principio de Responsabilidad Única. Debes separar las responsabilidades de cálculo, impresión y almacenamiento en clases diferentes.
+
+public class Order {
+    private List<String> items;
+    private double totalAmount;
+
+    public Order(List<String> items) {
+        this.items = items;
+        this.totalAmount = calculateTotal();
+    }
+
+    private double calculateTotal() {
+        // Lógica para calcular el total de la orden
+        return 100.0; // simplificado
+    }
+
+    public void printOrder() {
+        // Lógica para imprimir la orden
+    }
+
+    public void saveToDatabase() {
+        // Lógica para guardar la orden en la base de datos
+    }
+}
+
+Pistas:
+1. La clase Order solo debe gestionar los datos de la orden.
+2. Crea una nueva clase para manejar la impresión de la orden.
+3. Crea una nueva clase para manejar el almacenamiento de la orden en la base de datos.
+
+
+
+/* CORRECCIÓN */
+public class Order {
+    private List<String> items;
+    private double totalAmount;
+
+    public Order(List<String> items) {
+        this.items = items;
+        this.totalAmount = 0;
+    }
+
+    public List<String> getItems() {
+        return items;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setItems(List items){
+        this.items = items;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+}
+
+public class OrderCalculator {
+    public double calculateTotal(Order order) {
+        // Lógica para calcular el total de la orden
+        double total = 100.0; 
+        order.setTotalAmount(total);
+        return total;
+    }
+}
+
+public class OrderPrinter {
+    public void printOrder(Order order) {
+        // Lógica para imprimir la orden
+        System.out.println("Order items: " + order.getItems());
+        System.out.println("Total amount: $" + order.getTotalAmount());
+    }
+}
+
+public class OrderSave {
+    public void saveToDatabase(Order order) {
+        // Lógica para guardar la orden en la base de datos
+        System.out.println("Order saved to database");
+    }
+}
